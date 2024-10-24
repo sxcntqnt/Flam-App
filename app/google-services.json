@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "919139490942",
+    "project_id": "quick-cruze",
+    "storage_bucket": "quick-cruze.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:919139490942:android:2973d21151603e230b0c2f",
+        "android_client_info": {
+          "package_name": "com.example.quickcruze"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAG_9o-QZyWb1EXQv4ToPnoYpL8mo62iaA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:919139490942:android:9c9e0b4786650bc60b0c2f",
+        "android_client_info": {
+          "package_name": "quick.cruze"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAG_9o-QZyWb1EXQv4ToPnoYpL8mo62iaA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
