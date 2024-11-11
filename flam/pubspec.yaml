@@ -35,7 +35,7 @@ dependencies:
     flutter_svg: ^2.0.14
     shared_preferences: ^2.0.15
     fluttertoast: ^8.0.9
-      book_my_seat: ^1.0.1
+    book_my_seat: ^1.0.1
     fido2_client:
       path: ../../flutter-projects/contrib-fido2-flutter-lib
 
