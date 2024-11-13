@@ -1,40 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#000000"
-    android:padding="16dp"
-    tools:context=".MainActivity">
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="16dp">
 
-    <!-- Register Button -->
-
-    <!-- Login Button -->
     <Button
-        android:id="@+id/register"
+        android:id="@+id/driver"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
-        android:backgroundTint="#FFFFFF"
+        android:layout_marginBottom="16dp"
+        android:background="@color/colorPrimary"
+        android:elevation="4dp"
+        android:text="Driver"
         android:padding="16dp"
-        android:text="@string/register_button"
-        android:textColor="#000000"
         android:textSize="18sp"
-        android:textStyle="bold" />
+        android:textColor="@android:color/white" />
 
     <Button
-        android:id="@+id/login"
+        android:id="@+id/customer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/register"
-        android:layout_marginTop="32dp"
-        android:backgroundTint="#FFFFFF"
-        android:textColor="#000000"
+        android:background="@color/colorAccent"
+        android:elevation="4dp"
+        android:padding="16dp"
+        android:text="Customer"
         android:textSize="18sp"
-        android:textStyle="bold"
-        android:text="@string/login_button"
-        android:padding="16dp" />
-
-</RelativeLayout>
+        android:textColor="@android:color/white" />
+</LinearLayout>

@@ -11,36 +11,38 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-public class MainActivity extends AppCompatActivity {
-    private Button mDriver, mCustomer;
+public class StartActivity extends AppCompatActivity {
+    private Button register;
+    private Button login;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_main);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+        setContentView(R.layout.activity_start);
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.start_log), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
 
-        mDriver = findViewById(R.id.driver);
-        mCustomer = findViewById(R.id.customer);
+        register = findViewById(R.id.register);
+        login = findViewById(R.id.login);
 
-        mDriver.setOnClickListener(new View.OnClickListener() {
+        //configuring the views register button
+        register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, DriverLoginActivity.class);
-                startActivity(intent);
+                startActivity(new Intent(StartActivity.this, UserRegistration.class));
                 finish();
             }
         });
 
-        mCustomer.setOnClickListener(new View.OnClickListener() {
+        //configuring the views login button
+        login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, CustomerLoginActivity.class);
-                startActivity(intent);
+                startActivity(new Intent(StartActivity.this, UserLogin.class));
                 finish();
             }
         });
