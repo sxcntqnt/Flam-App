@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:book_my_seat/book_my_seat.dart';
-import 'package:flutter/material.dart';
-import 'package:stock_ui/http_service.dart';
-import 'package:stock_ui/stock.dart';
-import 'package:stock_ui/stock_list.dart';
+import 'package:book_my_seat/book_my_seat.dart'; // Ensure this is correctly installed
+import 'package:stock_ui/http_service.dart'; // Ensure this is correctly installed
+import 'package:stock_ui/stock.dart'; // Ensure this is correctly installed
+import 'package:stock_ui/stock_list.dart'; // Ensure this is correctly installed
 import 'package:intl/intl.dart';
-
 
 void main() {
   runApp(const BusApp());
@@ -23,24 +21,27 @@ class BusApp extends StatelessWidget {
         primarySwatch: Colors.lightGreen, // Use light green as the primary color
         brightness: Brightness.dark, // Dark theme
       ),
-      home: const BusApp(),
+      home: const BusSeatSelectionScreen(),
     );
   }
 }
 
-class BusApp extends StatefulWidget {
-  const BusApp({Key? key}) : super(key: key);
+class BusSeatSelectionScreen extends StatefulWidget {
+  const BusSeatSelectionScreen({Key? key}) : super(key: key);
 
   @override
-  State<BusApp> createState() => _BusAppState();
+  _BusSeatSelectionScreenState createState() => _BusSeatSelectionScreenState();
 }
 
-class _BusAppState extends State<BusApp> {
+class _BusSeatSelectionScreenState extends State<BusSeatSelectionScreen> {
   Set<SeatNumber> selectedSeats = {};
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text('Bus Seat Selection'),
+      ),
       body: SafeArea(
         child: Column(
           mainAxisSize: MainAxisSize.max,
@@ -55,7 +56,7 @@ class _BusAppState extends State<BusApp> {
             ),
             Flexible(
               child: SizedBox(
-                width: double.maxFinite,
+                width: double.infinity,
                 height: 500,
                 child: SeatLayoutWidget(
                   onSeatStateChanged: (rowI, colI, seatState) {
@@ -258,7 +259,7 @@ class SeatNumber {
   }
 
   @override
-  int get hashCode => rowI.hashCode;
+  int get hashCode => rowI.hashCode ^ colI.hashCode; // Ensure the hashcode uses both row and col
 
   @override
   String toString() {
@@ -329,7 +330,7 @@ class MyHomePage extends StatelessWidget {
                   builder: (BuildContext context,
                       AsyncSnapshot<List<Stock>> snapshot) {
                     if (snapshot.hasData) {
-                      List<Stock> stocks = snapshot.data;
+                      List<Stock> stocks = snapshot.data!;
                       return SizedBox(
                           height: MediaQuery.of(context).size.height - 310,
                           child: StockList(
