@@ -34,6 +34,7 @@ dependencies:
     http: ^0.13.5
     flutter_svg: ^2.0.14
     shared_preferences: ^2.0.15
+    h3_flutter: ^0.6.6
     fluttertoast: ^8.0.9
     book_my_seat: ^1.0.1
     fido2_client:
