@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:book_my_seat/book_my_seat.dart'; // Ensure this is correctly installed
-import 'package:stock_ui/http_service.dart'; // Ensure this is correctly installed
+import 'package:utils/helper_functions.dart'; // Ensure this is correctly installed
 import 'package:stock_ui/stock.dart'; // Ensure this is correctly installed
 import 'package:stock_ui/stock_list.dart'; // Ensure this is correctly installed
 import 'package:intl/intl.dart';
