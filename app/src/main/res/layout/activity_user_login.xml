@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/users_login"
+    android:gravity="center"
     android:background="#000000"
     android:padding="16dp">
 
@@ -10,33 +11,48 @@
         android:id="@+id/email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="40dp"
         android:background="#333333"
+        android:textColorHint="#B0BEC5"
         android:hint="Email"
         android:inputType="textEmailAddress"
         android:padding="10dp"
-        android:textColor="#FFFFFF" /> <!-- Add margin for spacing -->
+        android:textColor="#FFFFFF"
+        android:textSize="16sp"/> <!-- Add margin for spacing -->
 
     <EditText
         android:id="@+id/password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/email"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="40dp"
         android:background="#333333"
+        android:textColorHint="#B0BEC5"
         android:hint="Password"
         android:inputType="textPassword"
         android:padding="10dp"
-        android:textColor="#FFFFFF" /> <!-- Add margin for spacing -->
+        android:textColor="#FFFFFF"
+        android:textSize="16sp"/> <!-- Add margin for spacing -->
 
     <Button
         android:id="@+id/login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/password"
-        android:background="#FFFFFF"
         android:padding="10dp"
+        android:layout_marginBottom="40dp"
         android:text="Login"
-        android:textColor="#000000" /> <!-- Add padding for better button size -->
+        android:textColor="#fff"
+        android:textSize="16sp"/>
+
+    <Button
+        android:id="@+id/signupredirect"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/login"
+        android:padding="10dp"
+        android:text="Sign Up"
+        android:textColor="#fff"
+        android:textSize="16sp"/><!-- Add padding for better button size -->
 
 </RelativeLayout>

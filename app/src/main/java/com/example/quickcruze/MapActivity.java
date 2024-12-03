@@ -8,7 +8,11 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.google.android.gms.maps.GoogleMap;
+
 public class MapActivity extends AppCompatActivity {
+
+    private GoogleMap gMap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
