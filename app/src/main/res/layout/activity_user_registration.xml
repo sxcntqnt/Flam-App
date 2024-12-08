@@ -6,20 +6,31 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:background="#000000"
-    android:padding="16dp"
-    tools:context=".UserRegistration">
+    android:padding="16dp">
+<!--    tools:context=".UserRegistration">-->
+
+    <TextView
+        android:id="@+id/appname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="QUICK CRUZE"
+        android:layout_alignParentTop="true"
+        android:textColor="#B0BEC5"
+        android:layout_marginBottom="100dp"
+        android:layout_centerHorizontal="true"
+        android:textSize="20sp"/>
 
     <!-- Email Field -->
     <EditText
         android:id="@+id/email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_below="@id/appname"
         android:hint="Email"
         android:inputType="textEmailAddress"
-        android:padding="16dp"
+        android:padding="10dp"
         android:background="#333333"
-        android:textColor="#fff"
+        android:textColor="#FFFFFF"
         android:textColorHint="#B0BEC5"
         android:textSize="16sp" />
 
@@ -32,7 +43,7 @@
         android:layout_marginTop="40dp"
         android:hint="Password"
         android:inputType="textPassword"
-        android:padding="16dp"
+        android:padding="10dp"
         android:background="#333333"
         android:textColor="#fff"
         android:textColorHint="#B0BEC5"
