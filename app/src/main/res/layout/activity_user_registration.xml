@@ -4,20 +4,33 @@
     android:id="@+id/users_registration"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
-    tools:context=".UserRegistration">
+    android:gravity="center"
+    android:background="#000000"
+    android:padding="16dp">
+<!--    tools:context=".UserRegistration">-->
+
+    <TextView
+        android:id="@+id/appname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="QUICK CRUZE"
+        android:layout_alignParentTop="true"
+        android:textColor="#B0BEC5"
+        android:layout_marginBottom="100dp"
+        android:layout_centerHorizontal="true"
+        android:textSize="20sp"/>
 
     <!-- Email Field -->
     <EditText
         android:id="@+id/email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_below="@id/appname"
         android:hint="Email"
         android:inputType="textEmailAddress"
-        android:padding="16dp"
-        android:backgroundTint="#E91E63"
-        android:textColor="#8BC34A"
+        android:padding="10dp"
+        android:background="#333333"
+        android:textColor="#FFFFFF"
         android:textColorHint="#B0BEC5"
         android:textSize="16sp" />
 
@@ -27,27 +40,36 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/email"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="40dp"
         android:hint="Password"
         android:inputType="textPassword"
-        android:padding="16dp"
-        android:backgroundTint="#E91E63"
-        android:textColor="#8BC34A"
+        android:padding="10dp"
+        android:background="#333333"
+        android:textColor="#fff"
         android:textColorHint="#B0BEC5"
         android:textSize="16sp" />
 
     <!-- Register Button -->
     <Button
         android:id="@+id/register"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/password"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="40dp"
         android:text="@string/register_button"
-        android:padding="16dp"
-        android:textColor="#8BC34A"
-        android:backgroundTint="#E91E63"
+        android:padding="10dp"
+        android:textColor="#fff"
         android:textSize="16sp" />
+
+    <Button
+        android:id="@+id/loginredirect"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/register"
+        android:padding="10dp"
+        android:layout_marginTop="40dp"
+        android:text="Login"
+        android:textColor="#fff"
+        android:textSize="16sp"/>
 
 </RelativeLayout>

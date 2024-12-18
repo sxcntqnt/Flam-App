@@ -1,5 +1,6 @@
 package com.example.quickcruze;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Patterns;
@@ -25,6 +26,7 @@ public class UserRegistration extends AppCompatActivity {
     private EditText password;
     private Button register;
     private FirebaseAuth auth;
+    private Button login_redirect;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +44,7 @@ public class UserRegistration extends AppCompatActivity {
         email = findViewById(R.id.email);
         password = findViewById(R.id.password);
         register = findViewById(R.id.register);
+        login_redirect = findViewById(R.id.loginredirect);
 
         // Initialize Firebase Auth
         auth = FirebaseAuth.getInstance();
@@ -62,6 +65,15 @@ public class UserRegistration extends AppCompatActivity {
                 } else {
                     registerUser(txt_email, txt_password);
                 }
+            }
+        });
+
+        login_redirect.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Intent to redirect to login page if user already has account
+                Intent intent = new Intent(UserRegistration.this, UserLogin.class);
+                startActivity(intent);
             }
         });
     }
