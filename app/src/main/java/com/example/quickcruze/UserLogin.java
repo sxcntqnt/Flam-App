@@ -22,12 +22,13 @@ public class UserLogin extends AppCompatActivity {
     private EditText email;
     private EditText password;
     private Button login;
+    private Button signupredirect;
 
     private FirebaseAuth auth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
+
         setContentView(R.layout.activity_user_login);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.users_login), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -37,6 +38,7 @@ public class UserLogin extends AppCompatActivity {
         email = findViewById(R.id.email);
         password = findViewById(R.id.password);
         login = findViewById(R.id.login);
+        signupredirect = findViewById(R.id.signupredirect);
 
         auth = FirebaseAuth.getInstance();
         login.setOnClickListener(new View.OnClickListener() {
@@ -47,6 +49,14 @@ public class UserLogin extends AppCompatActivity {
                 loginUser(txt_email, txt_password);
             }
         });
+
+        signupredirect.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(UserLogin.this, UserRegistration.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void loginUser(String email, String password) {
@@ -54,7 +64,7 @@ public class UserLogin extends AppCompatActivity {
             @Override
             public void onSuccess(AuthResult authResult) {
                 Toast.makeText(UserLogin.this, "Login was Successful", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(UserLogin.this, MainActivity.class));
+                startActivity(new Intent(UserLogin.this, MapsActivity.class));
                 finish();
             }
         });
