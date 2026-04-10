@@ -1,0 +1,91 @@
+name: Move main code to reference branch
+
+on:
+  workflow_dispatch:
+    inputs:
+      confirm:
+        description: 'Type "yes" to confirm moving all code from main to reference and emptying main'
+        required: true
+        default: ''
+
+jobs:
+  move-to-reference:
+    runs-on: ubuntu-latest
+    if: github.event.inputs.confirm == 'yes'
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout main branch
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Configure git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Create or update reference branch from main
+        run: |
+          MAIN_SHA=$(git rev-parse HEAD)
+          # Check if reference branch already exists on remote
+          if git ls-remote --exit-code --heads origin reference; then
+            REFERENCE_SHA=$(git ls-remote origin reference | awk '{print $1}')
+            # Only push if reference is identical to or behind main (no diverged work)
+            if git merge-base --is-ancestor "$REFERENCE_SHA" "$MAIN_SHA"; then
+              echo "Branch 'reference' is behind or identical to main, fast-forwarding..."
+              git push origin HEAD:reference
+            else
+              echo "ERROR: 'reference' branch has commits not in main. Aborting to prevent data loss."
+              echo "Manually reconcile the branches before running this workflow."
+              exit 1
+            fi
+          else
+            echo "Creating new 'reference' branch from main..."
+            git push origin HEAD:reference
+          fi
+          echo "Successfully pushed all main code to 'reference' branch."
+
+      - name: Empty main branch
+        run: |
+          REPO_NAME=$(basename "${{ github.repository }}")
+
+          # Remove all tracked files (including this workflow - it is intentionally moved to
+          # the reference branch and will no longer be needed on main after this operation)
+          git rm -rf .
+
+          # Create a new README explaining where the code moved
+          cat > README.md << EOF
+          # ${REPO_NAME}
+
+          > **Note:** The source code has been moved to the [\`reference\`](../../tree/reference) branch.
+          >
+          > Please switch to the \`reference\` branch to view the full application code:
+          >
+          > \`\`\`bash
+          > git checkout reference
+          > \`\`\`
+          EOF
+
+          git add README.md
+          git commit -m "Move all code to reference branch
+
+          All source code has been moved to the 'reference' branch.
+          This main branch now only contains this README redirect."
+
+      - name: Push emptied main branch
+        run: |
+          git push origin main
+          echo "Main branch has been emptied. All code is now on the 'reference' branch."
+
+      - name: Summary
+        run: |
+          echo "========================================="
+          echo "Branch migration complete!"
+          echo "========================================="
+          echo "- 'reference' branch: contains all original main code"
+          echo "- 'main' branch: now empty (contains only README redirect)"
+          echo "========================================="
