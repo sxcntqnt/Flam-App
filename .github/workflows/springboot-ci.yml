@@ -16,7 +16,11 @@ jobs:
   # ─────────────────────────────────────────────
   build-and-test:
     name: Build & Unit Tests
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest   
+    defaults:
+      run:
+        working-directory: dezole
+
     services:
       postgres:                          # Spin up Postgres for integration tests
         image: postgres:16-alpine
