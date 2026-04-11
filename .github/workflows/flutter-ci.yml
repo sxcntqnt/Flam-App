@@ -16,6 +16,9 @@ jobs:
   analyze:
     name: Static Analysis & Dependency Audit
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: dezole
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
