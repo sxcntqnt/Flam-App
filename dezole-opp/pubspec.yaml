@@ -1,0 +1,44 @@
+name: dezole_opp
+description: "Dezole Opp - Passenger opportunity/booking app with rich state management"
+publish_to: 'none' 
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=2.19.3 <3.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.2
+  carousel_slider: ^4.2.1
+  flutter_svg: ^1.1.4
+  cached_network_image: ^3.2.0
+  share_plus: ^4.1.0
+  permission_handler: ^11.0.1
+  shared_preferences: ^2.0.13
+  flutter_riverpod: ^2.4.0
+  rxdart: ^0.27.0
+  http: ^0.13.5
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/images/
+    - assets/icons/
+    - assets/gif/
+    - assets/images/cars/
+  fonts:
+    - family: Poppins
+      fonts:
+        - asset: fonts/Poppins-Regular.ttf
+        - asset: fonts/Poppins-Medium.ttf
+        - asset: fonts/Poppins-SemiBold.ttf
+        - asset: fonts/Poppins-Bold.ttf
+        - asset: fonts/Poppins-ExtraBold.ttf

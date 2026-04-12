@@ -1,6 +1,5 @@
 package com.rideapp.dezole.service;
 
-import com.rideapp.dezole.dto.AuthResponse;
 import com.rideapp.dezole.dto.DriverRegisterRequest;
 import com.rideapp.dezole.dto.LoginRequest;
 import com.rideapp.dezole.dto.RegisterRequest;
@@ -15,7 +14,6 @@ import com.rideapp.dezole.repository.UserRepository;
 import com.rideapp.dezole.repository.WalletRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -69,6 +67,8 @@ public class AuthService {
                     .userId(user.getId())
                     .email(user.getEmail())
                     .role(user.getRole().name())
+                    .profileImage(user.getProfileImage())
+                    .phone(user.getPhone())
                     .build();
         } catch (Exception e) {
             return AuthStateResponse.builder()
@@ -93,16 +93,17 @@ public class AuthService {
                     .userId(user.getId())
                     .email(user.getEmail())
                     .role(user.getRole().name())
-                    .build();
-        } catch (BadCredentialsException e) {
-            return AuthStateResponse.builder()
-                    .status(AuthStatus.ERROR)
-                    .errorMessage("Invalid email or password")
+                    .isDriver(user.getRole() == Role.DRIVER)
+                    .driverId(user.getDriverId())
+                    .isAvailable(user.getIsAvailable())
+                    .profileImage(user.getProfileImage())
+                    .phone(user.getPhone())
+                    .orgId(user.getOrgId())
                     .build();
         } catch (Exception e) {
             return AuthStateResponse.builder()
                     .status(AuthStatus.ERROR)
-                    .errorMessage(e.getMessage())
+                    .errorMessage("Invalid email or password")
                     .build();
         }
     }
@@ -127,7 +128,10 @@ public class AuthService {
                     .totalRatings(0)
                     .build();
 
-            driverRepository.save(driver);
+            driver = driverRepository.save(driver);
+
+            user.setDriverId(driver.getId());
+            userRepository.save(user);
 
             String token = jwtService.generateToken(user);
 
@@ -137,6 +141,9 @@ public class AuthService {
                     .userId(user.getId())
                     .email(user.getEmail())
                     .role(user.getRole().name())
+                    .isDriver(true)
+                    .driverId(driver.getId())
+                    .isAvailable(true)
                     .build();
         } catch (Exception e) {
             return AuthStateResponse.builder()
@@ -159,6 +166,12 @@ public class AuthService {
                     .userId(user.getId())
                     .email(user.getEmail())
                     .role(user.getRole().name())
+                    .isDriver(user.getRole() == Role.DRIVER)
+                    .driverId(user.getDriverId())
+                    .isAvailable(user.getIsAvailable())
+                    .profileImage(user.getProfileImage())
+                    .phone(user.getPhone())
+                    .orgId(user.getOrgId())
                     .build();
         } catch (Exception e) {
             return AuthStateResponse.builder()

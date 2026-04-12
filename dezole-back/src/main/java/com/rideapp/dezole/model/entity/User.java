@@ -67,6 +67,13 @@ public class User implements UserDetails {
     @Builder.Default
     private Integer referralCount = 0;
 
+    // Organization support
+    private String orgId;
+    
+    // Driver support
+    private String driverId;
+    private Boolean isAvailable;
+
     private String fcmToken;
 
     private LocalDateTime lastLoginAt;
