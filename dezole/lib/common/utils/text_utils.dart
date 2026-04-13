@@ -39,9 +39,11 @@ class TextUtils {
   }
 
   static bool validateEmail(String email) {
-    return RegExp(
-      r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+",
-    ).hasMatch(email);
+    if (email.isEmpty || email.length > 255) return false;
+    final emailRegex = RegExp(
+      r'^[a-zA-Z0-9.!#$%&\'*+/=?^_`{|}~]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$',
+    );
+    return emailRegex.hasMatch(email);
   }
 
   static String replaceEmptyWithDash(dynamic value) {
