@@ -1,0 +1,124 @@
+name: Flutter iOS CI — Build & Distribution
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+env:
+  FLUTTER_VERSION: "3.41.6"
+
+jobs:
+  # ─────────────────────────────────────────────
+  # 1. BUILD VALIDATION (FAST — NO SIGNING)
+  # ─────────────────────────────────────────────
+  ios-validate:
+    name: iOS Build Validation (No Codesign)
+    runs-on: macos-latest
+    defaults:
+      run:
+        working-directory: dezole
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: stable
+          cache: true
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Install CocoaPods
+        run: |
+          cd ios
+          pod install
+
+      - name: Build iOS (no codesign)
+        run: flutter build ios --no-codesign --dart-define=ENV=staging
+
+  # ─────────────────────────────────────────────
+  # 2. SIGNED IPA BUILD (MAIN BRANCH ONLY)
+  # ─────────────────────────────────────────────
+  ios-build:
+    name: Build Signed IPA
+    runs-on: macos-latest
+    needs: ios-validate
+    if: github.ref == 'refs/heads/main'
+    defaults:
+      run:
+        working-directory: dezole
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: stable
+          cache: true
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      # 🔐 Import certificate
+      - name: Import signing certificate
+        run: |
+          echo "${{ secrets.IOS_CERTIFICATE_BASE64 }}" | base64 --decode > cert.p12
+          security create-keychain -p "${{ secrets.KEYCHAIN_PASSWORD }}" build.keychain
+          security default-keychain -s build.keychain
+          security unlock-keychain -p "${{ secrets.KEYCHAIN_PASSWORD }}" build.keychain
+          security import cert.p12 -k build.keychain -P "${{ secrets.IOS_CERTIFICATE_PASSWORD }}" -T /usr/bin/codesign
+          security set-key-partition-list -S apple-tool:,apple: -s -k "${{ secrets.KEYCHAIN_PASSWORD }}" build.keychain
+
+      # 📱 Install provisioning profile
+      - name: Install provisioning profile
+        run: |
+          mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
+          echo "${{ secrets.IOS_PROVISION_PROFILE_BASE64 }}" | base64 --decode > profile.mobileprovision
+          cp profile.mobileprovision ~/Library/MobileDevice/Provisioning\ Profiles/
+
+      # 📦 Build IPA
+      - name: Build IPA
+        run: flutter build ipa --release --dart-define=ENV=production
+
+      - name: Upload IPA artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ios-ipa
+          path: dezole/build/ios/ipa/*.ipa
+          retention-days: 7
+
+  # ─────────────────────────────────────────────
+  # 3. TESTFLIGHT DEPLOYMENT (OPTIONAL)
+  # ─────────────────────────────────────────────
+  ios-deploy:
+    name: Deploy to TestFlight
+    runs-on: macos-latest
+    needs: ios-build
+    if: startsWith(github.ref, 'refs/tags/')
+    defaults:
+      run:
+        working-directory: dezole
+
+    steps:
+      - name: Download IPA
+        uses: actions/download-artifact@v4
+        with:
+          name: ios-ipa
+
+      - name: Upload to TestFlight
+        uses: apple-actions/upload-testflight-build@v1
+        with:
+          app-path: "*.ipa"
+          issuer-id: ${{ secrets.APPSTORE_ISSUER_ID }}
+          api-key-id: ${{ secrets.APPSTORE_API_KEY_ID }}
+          api-private-key: ${{ secrets.APPSTORE_API_PRIVATE_KEY }}
