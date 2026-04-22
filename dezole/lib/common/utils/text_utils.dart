@@ -1,6 +1,6 @@
 import 'package:flutter/services.dart';
 
-enum TextSizeType { Width, Height }
+enum TextSizeType { width, height }
 
 class TextUtils {
   static Map<String, String> splitName(String fullname) {
@@ -41,7 +41,7 @@ class TextUtils {
   static bool validateEmail(String email) {
     if (email.isEmpty || email.length > 255) return false;
     final emailRegex = RegExp(
-      r'^[a-zA-Z0-9.!#$%&\'*+/=?^_`{|}~]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$',
+      r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+",
     );
     return emailRegex.hasMatch(email);
   }
@@ -68,16 +68,16 @@ class TextUtils {
   }
 
   static List<TextInputFormatter> get textOnlyFormater => [
-    FilteringTextInputFormatter(RegExp(r'[a-zA-Z ]'), allow: true),
-  ];
+        FilteringTextInputFormatter(RegExp(r'[a-zA-Z ]'), allow: true),
+      ];
 
   static List<TextInputFormatter> get numberOnlyFormater => [
-    FilteringTextInputFormatter.digitsOnly,
-  ];
+        FilteringTextInputFormatter.digitsOnly,
+      ];
 
   static List<TextInputFormatter> get decimalInputFormater => [
-    FilteringTextInputFormatter.allow(RegExp("[0-9.]")),
-  ];
+        FilteringTextInputFormatter.allow(RegExp("[0-9.]")),
+      ];
 
   static String filterSpecialCharacterExceptPlus(String val) {
     return val

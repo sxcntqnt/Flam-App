@@ -12,7 +12,7 @@ class ReusableTextField extends FormField<String> {
     String hintText = "",
     bool showSurfixIcon = false,
     bool readOnly = false,
-    TextFieldType type = TextFieldType.Outline,
+      TextFieldType type = TextFieldType.outline,
     String title = "",
     bool required = false,
     EdgeInsets? margin,
@@ -128,17 +128,17 @@ class ReusableTextField extends FormField<String> {
                                    ],
                                  ),
                                ),
-                             const Spacer(),
-                             if (trailingTitle != null) trailingTitle,
+            const Spacer(),
+            if (trailingTitle != null) trailingTitle!,
                            ],
                          ),
                        ),
                        GestureDetector(
                          onTap: onTap,
                          child: Row(
-                           children: [
-                             if (leading != null) leading,
-                             Expanded(
+          children: [
+            if (leading != null) leading!,
+            Expanded(
                                child: Container(
                                  height: 60.hp,
                                  decoration: BoxDecoration(
@@ -146,7 +146,7 @@ class ReusableTextField extends FormField<String> {
                                    borderRadius: BorderRadius.circular(
                                      borderRadius,
                                    ),
-                                   border: type == TextFieldType.Outline
+                                   border: type == TextFieldType.outline
                                        ? Border.all(
                                            width: 1,
                                            color: CustomTheme.gray,
@@ -201,7 +201,7 @@ class ReusableTextField extends FormField<String> {
                                  ),
                                ),
                              ),
-                             if (trailing != null) trailing,
+                             if (trailing != null) trailing!,
                            ],
                          ),
                        ),
@@ -235,7 +235,7 @@ class ReusableTextField extends FormField<String> {
   }
 }
 
-enum TextFieldType { Outline, Filled }
+enum TextFieldType { outline, filled }
 
 class _CustomTextFieldState extends FormFieldState<String> {
   RestorableTextEditingController? _controller;

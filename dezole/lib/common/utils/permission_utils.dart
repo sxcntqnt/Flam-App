@@ -5,6 +5,7 @@ import 'package:dezole/common/utils/snackbar_utils.dart';
 class PermissionUtils {
   static Future<bool> requestCameraPermission(BuildContext context) async {
     final status = await Permission.camera.request();
+    if (!context.mounted) return false;
     if (status.isGranted || status.isLimited) {
       SnackBarUtils.showSuccessBar(
         context: context,
@@ -24,6 +25,7 @@ class PermissionUtils {
     BuildContext context,
   ) async {
     final status = await Permission.notification.request();
+    if (!context.mounted) return false;
     if (status.isGranted || status.isLimited) {
       SnackBarUtils.showSuccessBar(
         context: context,
@@ -41,6 +43,7 @@ class PermissionUtils {
 
   static Future<bool> requestLocationPermission(BuildContext context) async {
     final status = await Permission.location.request();
+    if (!context.mounted) return false;
     if (status.isGranted || status.isLimited) {
       SnackBarUtils.showSuccessBar(
         context: context,

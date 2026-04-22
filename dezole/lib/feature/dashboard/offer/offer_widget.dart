@@ -13,8 +13,6 @@ class OfferWidget extends StatefulWidget {
 }
 
 class _OfferWidgetState extends State<OfferWidget> {
-  final _amountController = TextEditingController();
-
   @override
   Widget build(BuildContext context) {
     return CommonContainer(

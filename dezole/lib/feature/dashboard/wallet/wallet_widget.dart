@@ -132,12 +132,15 @@ class WalletWidget extends ConsumerWidget {
                           ? const Color(0xFFC8E6C9)
                           : const Color(0xFFFFCDD2),
                     ),
-                    child: SvgPicture.asset(
-                      tx.isCredit ? Assets.upIcon : Assets.downIcon,
-                      color: tx.isCredit
-                          ? const Color(0xFF388E3D)
-                          : const Color(0xFFD32F2F),
-                    ),
+              child: SvgPicture.asset(
+                tx.isCredit ? Assets.upIcon : Assets.downIcon,
+                colorFilter: ColorFilter.mode(
+                  tx.isCredit
+                      ? const Color(0xFF388E3D)
+                      : const Color(0xFFD32F2F),
+                  BlendMode.srcIn,
+                ),
+              ),
                   ),
                   title: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,

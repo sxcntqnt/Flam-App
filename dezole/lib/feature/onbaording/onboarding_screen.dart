@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:dezole/app/text_style.dart';
-import 'package:dezole/common/constant/assets.dart';
 import 'package:dezole/common/theme.dart';
 import 'package:dezole/common/utils/size_utils.dart';
 import 'package:dezole/common/widget/page_wrapper.dart';

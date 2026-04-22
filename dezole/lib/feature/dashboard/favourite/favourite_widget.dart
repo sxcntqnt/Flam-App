@@ -49,7 +49,10 @@ class FavouriteWidget extends StatelessWidget {
               ),
               trailing: SvgPicture.asset(
                 Assets.deleteIcon,
-                color: CustomTheme.googleColor,
+                colorFilter: ColorFilter.mode(
+                  CustomTheme.googleColor,
+                  BlendMode.srcIn,
+                ),
               ),
             ),
           );

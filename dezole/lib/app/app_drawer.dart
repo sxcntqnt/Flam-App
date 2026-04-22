@@ -7,7 +7,6 @@ import 'package:dezole/common/utils/size_utils.dart';
 import 'package:dezole/common/widget/common_popup_box.dart';
 import 'package:dezole/core/providers/auth_provider.dart';
 import 'package:dezole/core/router/app_router.dart';
-import 'package:dezole/feature/auth/welcomeScreen/screen/welcome_page.dart';
 import 'package:dezole/feature/drawer/aboutUs/about_us_widget.dart';
 import 'package:dezole/feature/drawer/complain/complain_widget.dart';
 import 'package:dezole/feature/drawer/helpSupport/help_support_widget.dart';

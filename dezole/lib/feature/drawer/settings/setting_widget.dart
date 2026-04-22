@@ -13,7 +13,7 @@ import 'package:dezole/feature/drawer/settings/delete_account_widget.dart';
 import 'package:dezole/feature/drawer/settings/privacy_policy_widget.dart';
 
 class SettingWidget extends ConsumerWidget {
-  SettingWidget({super.key});
+  const SettingWidget({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

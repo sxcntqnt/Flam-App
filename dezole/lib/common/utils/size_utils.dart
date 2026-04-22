@@ -32,17 +32,17 @@ class SizeUtils {
 
   static DeviceType get type {
     if (_currentWidth <= 360) {
-      return DeviceType.Small;
+      return DeviceType.small;
     } else if (_currentWidth <= 540 && _currentWidth > 360) {
-      return DeviceType.Medium;
+      return DeviceType.medium;
     } else {
-      return DeviceType.Large;
+      return DeviceType.large;
     }
   }
 
-  static bool get isSmallPhone => type == DeviceType.Small;
-  static bool get isMediumPhone => type == DeviceType.Medium;
-  static bool get isLargePhone => type == DeviceType.Large;
+  static bool get isSmallPhone => type == DeviceType.small;
+  static bool get isMediumPhone => type == DeviceType.medium;
+  static bool get isLargePhone => type == DeviceType.large;
 }
 
 extension SizeExtension on num {
@@ -63,4 +63,4 @@ extension SizeExtension on num {
   }
 }
 
-enum DeviceType { Small, Medium, Large }
+enum DeviceType { small, medium, large }

@@ -41,7 +41,7 @@ class SecurityUtils {
   ];
 
   static final List<TextInputFormatter> messageFormatter = [
-    FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z0-9\s!@#$%^&*()\-=_+.,?\'":;/]')),
+    FilteringTextInputFormatter.allow(RegExp(r"[a-zA-Z0-9\s!@#$%^&*()\-=_+.,?':;/]")),
     LengthLimitingTextInputFormatter(maxMessageLength),
   ];
 
@@ -87,7 +87,7 @@ class SecurityUtils {
     bool hasUpper = password.contains(RegExp(r'[A-Z]'));
     bool hasLower = password.contains(RegExp(r'[a-z]'));
     bool hasDigit = password.contains(RegExp(r'[0-9]'));
-    bool hasSpecial = password.contains(RegExp(r'[!@#$%^&*()\-=_+.,?\'":;/]'));
+    bool hasSpecial = password.contains(RegExp(r"[!@#$%^&*()\-=_+.,?'":;/]"));
     return hasUpper && hasLower && hasDigit && hasSpecial;
   }
 

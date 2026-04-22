@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:dezole/common/constant/assets.dart';
-import 'package:dezole/common/theme.dart';
 import 'package:dezole/common/widget/common_container.dart';
 import 'package:dezole/common/widget/common_gridview_container.dart';
 import 'package:dezole/feature/rideFlow/availableRide/available_ride_widget.dart';

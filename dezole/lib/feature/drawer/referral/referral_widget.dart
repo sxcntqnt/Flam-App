@@ -11,7 +11,7 @@ import 'package:dezole/common/widget/custom_text_field.dart';
 import 'package:share_plus/share_plus.dart';
 
 class ReferralWidget extends ConsumerStatefulWidget {
-  ReferralWidget({super.key});
+  const ReferralWidget({super.key});
 
   @override
   ConsumerState<ReferralWidget> createState() => _ReferralWidgetState();

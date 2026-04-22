@@ -162,7 +162,7 @@ class FormValidator {
       return "URL must use HTTPS";
     }
     final uri = Uri.tryParse(val);
-    if (uri == null || !uri.hasHost) {
+    if (uri == null || uri.host.isEmpty) {
       return "Invalid URL format";
     }
     return null;
