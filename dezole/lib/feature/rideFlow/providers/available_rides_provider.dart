@@ -58,25 +58,35 @@ class RideStreamState {
 }
 
 class AvailableRidesNotifier extends StateNotifier<RideStreamState> {
+  final BehaviorSubject<List<AvailableRide>> _ridesSubject = 
+      BehaviorSubject<List<AvailableRide>>.seeded(_mockRides);
+  
+  final StreamSubscription _subscription;
+
   AvailableRidesNotifier() : super(const RideStreamState()) {
+    // Using RxDart to handle stream transformations
+    _subscription = _ridesSubject.stream
+        .debounceTime(const Duration(milliseconds: 300))
+        .distinct()
+        .listen((rides) {
+      state = state.copyWith(rides: rides, isLoading: false);
+    });
+    
     _loadRides();
+  }
+
+  @override
+  void dispose() {
+    _subscription.cancel();
+    _ridesSubject.close();
+    super.dispose();
   }
 
   Future<void> _loadRides() async {
     state = state.copyWith(isLoading: true);
-
-    final _ridesSubject = BehaviorSubject<List<AvailableRide>>.seeded(
-      _mockRides,
-    );
-
-    _ridesSubject.stream.debounceTime(const Duration(milliseconds: 300)).listen(
-      (rides) {
-        state = state.copyWith(rides: rides, isLoading: false);
-      },
-    );
-
+    // Simulate API call then push to subject
     await Future.delayed(const Duration(seconds: 1));
-    state = state.copyWith(rides: _mockRides, isLoading: false);
+    _ridesSubject.add(_mockRides);
   }
 
   void selectRide(String id) {
@@ -99,20 +109,20 @@ class AvailableRidesNotifier extends StateNotifier<RideStreamState> {
 
 final availableRidesProvider =
     StateNotifierProvider<AvailableRidesNotifier, RideStreamState>((ref) {
-      return AvailableRidesNotifier();
-    });
+  return AvailableRidesNotifier();
+});
 
 final selectedRideProvider = Provider<AvailableRide?>((ref) {
-  final rides = ref.watch(availableRidesProvider);
-  if (rides.selectedRideId == null) return null;
-  return rides.rides.firstWhere(
-    (r) => r.id == rides.selectedRideId,
-    orElse: () => rides.rides.first,
+  final state = ref.watch(availableRidesProvider);
+  if (state.selectedRideId == null) return null;
+  return state.rides.firstWhere(
+    (r) => r.id == state.selectedRideId,
+    orElse: () => state.rides.isNotEmpty ? state.rides.first : throw Exception('No rides available'),
   );
 });
 
-final _mockRides = [
-  const AvailableRide(
+const List<AvailableRide> _mockRides = [
+  AvailableRide(
     id: '1',
     driverName: 'John Kamau',
     vehicleName: 'Toyota Axio',
@@ -123,7 +133,7 @@ final _mockRides = [
     distance: '800m',
     eta: '5mins',
   ),
-  const AvailableRide(
+  AvailableRide(
     id: '2',
     driverName: 'Sarah Wanjiku',
     vehicleName: 'Honda Civic',
@@ -134,7 +144,7 @@ final _mockRides = [
     distance: '1.2km',
     eta: '8mins',
   ),
-  const AvailableRide(
+  AvailableRide(
     id: '3',
     driverName: 'Mike Otieno',
     vehicleName: 'Nissan Sentra',
